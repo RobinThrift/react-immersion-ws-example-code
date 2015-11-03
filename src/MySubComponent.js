@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 
 export class MySubComponent extends Component {
     render() {
-        return (<span>{this.props.name}</span>);
+        return (
+            <button onClick={this.props.onClick}>
+                {this.props.name}
+            </button>
+        );
     }
 }
