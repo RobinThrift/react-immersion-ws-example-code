@@ -1,5 +1,4 @@
-
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export class MySubComponent extends Component {
     render() {
@@ -10,3 +9,8 @@ export class MySubComponent extends Component {
         );
     }
 }
+
+MySubComponent.propTypes = {
+    onClick: React.PropTypes.func.isRequired,
+    name: React.PropTypes.string.isRequired
+};

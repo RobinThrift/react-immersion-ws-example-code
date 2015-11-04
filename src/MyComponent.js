@@ -6,7 +6,7 @@ export class MyComponent extends Component {
         super(props);
         this.state = {
             hide: false
-        }
+        };
     }
 
     clickHandler() {
@@ -16,14 +16,13 @@ export class MyComponent extends Component {
     render() {
         if (this.state.hide) {
             return (
-                <div></div>
-            );
-        } else {
-            return (
-                <div>
-                    <MySubComponent name="testing" onClick={this.clickHandler.bind(this)} />
-                </div>
+                <div />
             );
         }
+        return (
+            <div>
+                <MySubComponent name="testing" onClick={this.clickHandler.bind(this)} />
+            </div>
+        );
     }
 }
