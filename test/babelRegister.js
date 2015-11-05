@@ -16,6 +16,7 @@ try {
             global[key] = window[key]
         }
     }
+
     require('babel-core/register')({
         optional: ['es7.decorators']
     });

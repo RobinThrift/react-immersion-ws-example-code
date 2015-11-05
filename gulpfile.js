@@ -6,8 +6,10 @@ var yargs  = require('yargs'),
     config = {
         paths: {
             scripts: ['src/**/*.js', 'src/*.js', 'src/*.jsx', 'src/**/*.jsx'],
+            integrationTests: ['test/int/*.int.js'],
             tests: ['test/*.spec.js'],
-            dest: 'dist'
+            dest: 'dist',
+            integrationTestDist: 'intTestDist'
         }
     },
     args   = yargs
@@ -35,6 +37,18 @@ gulp.task('compile', function() {
         .pipe(gulp.dest(config.paths.dest));
 });
 
+gulp.task('integration-tests', ['compile'], function() {
+    var babel = require('gulp-babel');
+    return gulp.src(config.paths.integrationTests)
+        .pipe(babel({
+            optional: [
+                'es7.decorators',
+                'es7.asyncFunctions'
+            ]
+        }))
+        .pipe(gulp.dest(config.paths.integrationTestDist));
+});
+
 gulp.task('test', ['compile'], function() {
     if (args.withDebug) {
         process.env.DEBUG = 'grumpf:*';
@@ -50,8 +64,9 @@ gulp.task('test', ['compile'], function() {
 });
 
 gulp.task('watch', ['build'], function() {
-    gulp.watch(config.paths.scripts, ['lint', 'test']);;
-    gulp.watch(config.paths.tests, ['lint', 'test']);;
+    gulp.watch(config.paths.scripts, ['lint', 'test']);
+    gulp.watch(config.paths.tests, ['lint', 'test']);
+    gulp.watch(config.paths.integrationTests, ['lint', 'integration-tests']);
 });
 
 gulp.task('clean', function() {
